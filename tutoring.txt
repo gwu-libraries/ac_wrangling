@@ -1,0 +1,41 @@
+ACCY 2001: Introduction to Financial Accounting
+BISC 1111: Introductory Biology: Cells and Molecules
+BISC 2331: Insect Biology
+BISC 2450: Organic Evolution
+BISC 2452: Animal Behavior
+BISC 2454: General Ecology
+BISC 3454: Marine Ecology
+CHEM 1110: Fundamentals of Chemistry
+CHEM 1111: General Chemistry I
+CHEM 1112: General Chemistry II
+CHEM 1113: General Chemistry for Engineers
+CHEM 2151: Organic Chemistry I
+CHEM 2152: Organic Chemistry II
+CSCI 1012: Introduction to Programming with Python
+CSCI 1111: Introduction to Software Development
+CSCI 1112: Algorithms and Data Structures
+DATS 1001: Data Science for All
+ECON 1001: Principles of Mathematics for Economics
+ECON 1011: Principles of Economics I
+ECON 1012: Principles of Economics II
+GEOG 1002: Introduction to Physical Geography
+GEOG 1003: Society and Environment
+GEOG 2104: Introduction to Cartography and GIS
+GEOG 3105: Techniques of Spatial Analysis
+GEOG 3106: Intermediate Geographic Information Systems
+MATH 1007: Mathematics and Politics
+MATH 1051: Finite Mathematics for the Social and Management Sciences
+MATH 1220: Calculus with Precalculus I
+MATH 1231: Single-Variable Calculus I
+MATH 1232: Single-Variable Calculus II
+MATH 2184: Linear Algebra I
+MATH 2185: Comprehensive Introduction to Linear Algebra
+PHYS 1011: General Physics I
+PHYS 1012: General Physics II
+PHYS 1021: University Physics I
+PHYS 1022: University Physics II
+STAT 1051: Introduction to Business and Economic Statistics
+STAT 1053: Introduction to Statistics in Social Science
+STAT 1111: Business and Economic Statistics I
+STAT 2112: Business and Economic Statistics II
+STAT 2118: Regression Analysis
