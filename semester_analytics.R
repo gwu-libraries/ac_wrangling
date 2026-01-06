@@ -108,6 +108,16 @@ visit1_analysis <- match_df3 %>%
            fill = list(n = 0)) %>%
   ungroup()
 
+visit1_analysis_wide <- visit1_analysis %>%
+  pivot_wider(names_from = visited,
+              values_from = n,
+              names_prefix = 'visited_') %>%
+  rename(visit = visited_TRUE, no_visit = visited_FALSE) %>%
+  mutate(pct_visit = round(100*visit/(visit + no_visit), 1)) %>%
+  arrange(service, course)
+
+write.csv(visit1_analysis_wide, 'visits_analysis.csv', row.names = FALSE)
+
 overall_analysis <- visit1_analysis %>%
   group_by(service, visited) %>%
   summarize(total_n = sum(n)) %>%
@@ -119,7 +129,7 @@ by_course_analysis <- visit1_analysis %>%
               values_from = n) %>%
   rename(visited = 'TRUE', no_visit = 'FALSE') %>%
   mutate(total_messages = visited + no_visit,
-         percent_response = round(100*visited/total_messages, 1))
+         percent_response = round(visited/total_messages, 2))
 
 by_course_plot_tutoring <-
   by_course_analysis %>%
@@ -132,10 +142,19 @@ by_course_plot_tutoring <-
                  y = fct_reorder(course, percent_response),
                  size = total_messages),
              shape = 21,
-             fill = 'white') +
+             fill = 'royalblue') +
+  geom_text(aes(x = percent_response + 0.015,
+                y = fct_reorder(course, percent_response),
+                label = paste0(as.character(visited), '/',
+                               as.character(total_messages))),
+            size = 3,
+            hjust = 0) +
+  scale_x_continuous(labels = scales::percent_format()) +
   labs(y = 'Course', title = 'Tutoring',
        size = 'Number of \nStudents Messaged',
        x = 'Percent attending')
+
+by_course_plot_tutoring
 
 by_course_plot_review_sessions <-
   by_course_analysis %>%
@@ -148,10 +167,22 @@ by_course_plot_review_sessions <-
                  y = fct_reorder(course, percent_response),
                  size = total_messages),
              shape = 21,
-             fill = 'white') +
+             fill = 'royalblue') +
+  geom_text(aes(x = percent_response + 0.03,
+                y = fct_reorder(course, percent_response),
+                label = paste0(as.character(visited), '/',
+                               as.character(total_messages))),
+            size = 3,
+            hjust = 0) +
+  scale_x_continuous(
+    limits = c(0, 1.0),
+    breaks = seq(0, 1.01, 0.1),
+    labels = scales::percent_format()) +
   labs(y = 'Course', title = 'Review Sessions',
        size = 'Number of\nStudents Messaged',
        x = 'Percent attending')
+
+# Lollipop chart - response by course ----
 
 by_course_response_plot <-
   ggarrange(by_course_plot_tutoring,
@@ -162,5 +193,33 @@ by_course_response_plot <-
             legend = 'right')
 
 by_course_response_plot  
+ggsave('response_by_course.pdf', by_course_response_plot,
+       width = 8, height = 7)
+
+# Pie chart for overall statistics ----
+
+overall_stats <- overall_analysis %>%
+  mutate(visited = factor(visited,
+                          levels = c(FALSE, TRUE),
+                          labels = c('No Visit', 'Visit')),
+         service = factor(service,
+                          levels = c('tutoring', 'review_session'),
+                          labels = c('Tutoring', 'Review Sessions'))) %>%
+  ggplot() +
+  aes(x="", y=n_pct, fill=visited) +
+  geom_bar(stat="identity", width=1, color = 'black', linewidth = 0.25) +
+  geom_text(aes(label = total_n),
+            position = position_stack(vjust = 0.5), size = 2.5) +
+  coord_polar("y", start=0) +
+  theme_minimal() + 
+  labs(fill = '') +
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  facet_grid(~ service, scales = 'free')
+
+overall_stats
+ggsave('aggregate_stats.pdf', overall_stats, width = 4, height = 2.5)
 
                
