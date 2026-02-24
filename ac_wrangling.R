@@ -41,9 +41,10 @@ generate_notifications_list <-function(feedback_file,
                  'Exceptional performance'))) %>%
     filter(as.Date(`Comment Date`, format = "%m/%d/%Y") >= as.Date(start_date, format = '%Y-%m-%d')) %>% # only keep comments within the past 7 days 
     mutate(student_id = tolower(sub("@.*", "", `Student Email`)),
-           course = paste(`Subject Code`, `Course Number`)) %>%
+           course = paste(`Subject Code`, `Course Number`),
+           student_phone = as.character(`Student Cell Phone`)) %>%
     # This is just for looking at duplicates
-    select(student_id, course) %>%
+    select(student_id, student_phone, course) %>%
     distinct() # drops many duplicates
   
   penji_raw <- read.csv(penji_file, #'data/visits.csv',
@@ -117,7 +118,7 @@ generate_notifications_list <-function(feedback_file,
                                          needs_tutoring_notification ~ 'tutoring',
                                          TRUE ~ NA)) %>% # this can happen if what the student needs we don't provide
     drop_na() %>%
-    select(student_id, course, notification_type) 
+    select(student_id, student_phone, course, notification_type) 
   
   # Only include notifications for supported courses
   
@@ -135,7 +136,7 @@ generate_notifications_list <-function(feedback_file,
     rowwise() %>%
     mutate(full_message = glue(notification_content)) %>%
     ungroup() %>%
-    select(student_email, full_message)
+    select(student_email,student_phone, full_message)
   
   # write.csv(notifications_df, file = 'notifications_2025-11-05.csv', row.names = FALSE)
   write.xlsx(notifications_df, file = outfile) # file = 'notifications_2025-11-05.xlsx')
