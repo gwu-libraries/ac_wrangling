@@ -1,6 +1,6 @@
 # Academic Success Data Merge
 
-![](images/clipboard-2116010860.png)
+<img src="images/clipboard-2116010860.png" width="460">
 
 This app takes as inputs:
 
@@ -20,8 +20,8 @@ The app is run as an R Shiny app.
 
 ## Installation
 
-```
+```         
 git clone https://github.com/gwu-libraries/ac_wrangling.git
 ```
 
-In RStudio, run `app.R` as a Shiny App using the Run App ![](images/clipboard-70856000.png) button. Select the relevant files, the correct sheet within the faculty feedback Excel file, and the start date. Press "Generate Notifications" and download the result file.
+In RStudio, run `app.R` as a Shiny App using the Run App <img src="images/clipboard-70856000.png" width="65" height="18"> button. Select the relevant files, the correct sheet within the faculty feedback Excel file, and the start date. Press "Generate Notifications" and download the result file.
