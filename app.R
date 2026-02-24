@@ -27,7 +27,7 @@ source('ac_wrangling.R')
 # }
 
 ui <- fluidPage(
-  titlePanel("Excel File Loader"),
+  titlePanel("Academic Success Data Merging File Loader"),
   
   sidebarLayout(
     sidebarPanel(
@@ -36,8 +36,8 @@ ui <- fluidPage(
       
       uiOutput("sheet_ui"),
       
-      fileInput("penji_file", "Choose Penji File (Excel)", 
-                accept = c(".xlsx", ".xls", ".csv")),
+      fileInput("penji_file", "Choose Penji File (CSV)", 
+                accept = c(".csv")),
       
       dateInput("start_date", "Start date:", value = Sys.Date()),
       
